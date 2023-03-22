@@ -1,3 +1,3 @@
 # final-mobile-project
-npm i
-expo start
+* npm i
+* expo start
