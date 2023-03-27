@@ -86,7 +86,7 @@ const HomeScreen = ({navigation}) => {
                         <Text style={styles.manager_content}>Báo cáo</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.manager_box} onPress={()=>{
-                        // navigation.push("History/List")
+                        navigation.push("/salary")
                     }}>
                         <View style={styles.manager_box_icon}>
                             <Image 

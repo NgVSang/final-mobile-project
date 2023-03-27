@@ -112,6 +112,7 @@ export default AccountScreen
 const styles = StyleSheet.create({
     scroll_view:{
         backgroundColor:'#F7FAFF',
+        flex:1,
     },
     user:{
         paddingTop:30,

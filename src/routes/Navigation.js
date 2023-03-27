@@ -3,10 +3,10 @@ import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NavigationService from '../services/NavigationService';
 import React, {useEffect} from 'react'
-import MainScreen from '../screens/main_screen';
 import UserBottom from './UserBottom';
 import AuthScreen from '../screens/Auth/auth_screen';
 import {useDispatch, useSelector} from 'react-redux';
+import SalaryScreen from '../screens/UserScreen/Salary/salary_screen';
 
 
 const Stack = createNativeStackNavigator()
@@ -35,8 +35,8 @@ const Navigation = () => {
           }}
         />
         <Stack.Screen 
-          name="/" 
-          component={MainScreen} 
+          name="/salary" 
+          component={SalaryScreen} 
           options={{ 
             headerShown: false 
           }}
