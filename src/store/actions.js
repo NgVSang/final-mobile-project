@@ -1,3 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import authService from "../services/api/auth/AuthService";
+import {setHeaderConfigAxios} from "../services/https/apiConfig";
 import NavigationService from "../services/NavigationService";
 
 export const INCREMENT = 'INCREMENT';
@@ -5,29 +8,57 @@ export const SAVE_HISTORY = 'SAVE_HISTORY';
 export const DELETE_HISTORY = 'DELETE_HISTORY';
 export const DELETE_ALL_HISTORY = 'DELETE_ALL_HISTORY';
 export const LOGIN = 'LOGIN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGOUT = 'LOGOUT';
 
-export function login(value) {
-  let payload = {}
-  if (value.phone_number.trim() == "0795242610" && value.password.trim() == "Sang100302"){
-    payload = {
-      ...payload,
-      user:{
-        name:"Nguyễn Viết Sáng",
-        phone_number:"0795242610",
-        role:1,
-      },
-      token:"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvc21hcnR0di50aGlldGtlYXBwLmFzaWFcL2FwaVwvY3VzdG9tZXJcL2xvZ2luIiwiaWF0IjoxNjU3Njg0OTA1LCJleHAiOjc2NTc2ODQ4NDUsIm5iZiI6MTY1NzY4NDkwNSwianRpIjoiSjBFWUhWcjVXVFpGMENNVyIsInN1YiI6NSwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.9hYoqJ6jF_KhxTU0sGhYeACFY91yEvuGAafA1w1WAyI"
+export const login = (data) => async (dispatch) => {
+  dispatch({
+    type: LOGIN
+  })
+  try {
+    const payload = await authService.login(data)
+    const resData = payload.data;
+    if (payload.status == 1){
+        setHeaderConfigAxios(resData.access_token);
+        await AsyncStorage.setItem("access_token", resData.access_token);
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload:resData
+        })
+          NavigationService.reset('/user')
     }
-    NavigationService.reset('/user')
-  }else{
-    alert("Thông tin đăng nhập không đúng")
+    else{
+      throw new Error(payload.message)
+    }
+  } catch (error) {
+      alert(error.message)
+      dispatch({
+        type: LOGIN_FAILED,
+        payload: "Đăng nhập thất bại"
+      })
   }
-  return {
-    type: LOGIN,
-    payload: payload,
-  };
-}
+};
 
+export const logout = (data) => async (dispatch) => {
+  await dispatch({
+    type: LOGOUT
+  })
+  try {
+    const payload = await authService.logout(data)
+    console.log(payload);
+    if (payload){
+      NavigationService.reset('/auth');
+      setHeaderConfigAxios();
+    }
+  } catch (error) {
+      alert(error.message)
+      dispatch({
+        type: LOGIN_FAILED,
+        payload: "Đăng nhập thất bại"
+      })
+  }
+}
 
 export function increment(value) {
   return {

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View,ScrollView,Dimensions ,TouchableOpacity} from 'react-native'
 import React from 'react'
 import { Formik, Field } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {Button} from 'react-native-paper';
 import { authValidator } from '../validations'
 import WFormInput from '../components/WFormInput'
@@ -12,13 +12,9 @@ import {login} from '../store/actions';
 const { width, height } = Dimensions.get('window');
 const Login = ({navigation}) => {
     const dispatch = useDispatch();
-    const [loading,setLoading] = React.useState(false)
+    const { loading } = useSelector(state => state.auth)
     const handleLogin = async data => {
-        setLoading(true)
-        setTimeout(()=>{
-            dispatch(login(data))
-            setLoading(false)
-        },1000)
+        dispatch(login(data))
     };
     return (
         <ScrollView style={styles.screen}>

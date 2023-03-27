@@ -3,6 +3,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import Loading from '../../../components/Loading'
 import CalenderFullSize from '../../../components/CalenderFullSize'
+import {BASE_URL} from '../../../config'
 
 const HomeScreen = ({navigation}) => {
     const {user,token} = useSelector(state => state.auth)
@@ -16,8 +17,7 @@ const HomeScreen = ({navigation}) => {
                     // navigation.push('Profile')
                 }}>
                     <Image 
-                        // source={{uri:(config.API_BASE_URL+'/'+user.avatar)}}
-                        source={{uri:"https://top10dienbien.com/wp-content/uploads/2022/10/avatar-cute-11.jpg"}}
+                        source={{uri:(BASE_URL+'/'+user.avatar)}}
                         style={{
                             width:40,
                             height:40,

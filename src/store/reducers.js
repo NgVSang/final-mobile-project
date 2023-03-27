@@ -1,8 +1,17 @@
-import { INCREMENT, SAVE_HISTORY, DELETE_ALL_HISTORY, DELETE_HISTORY,LOGIN } from './actions';
+import { 
+  SAVE_HISTORY, 
+  DELETE_ALL_HISTORY, 
+  DELETE_HISTORY,
+  LOGIN,
+  LOGOUT,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED
+ } from './actions';
 
 export const initialState = {
   user:{},
-  token:""
+  token:"",
+  loading:false,
 };
 
 export function appReducer(
@@ -13,12 +22,25 @@ export function appReducer(
     case LOGIN:
       return {
         ...state,
-        ...action.payload
+        loading:true,
       }
-    case INCREMENT:
+    case LOGIN_SUCCESS:
       return {
         ...state,
-        // count: state.count + action.payload,
+        token: action.payload.access_token,
+        user: action.payload.info,
+        loading: false,
+      }
+    case LOGIN_FAILED:
+      return {
+        ...state,
+        loading:false,
+      }
+    case LOGOUT:
+      return {
+        ...state,
+        user:{},
+        token:""
       };
     case SAVE_HISTORY:
       return {
