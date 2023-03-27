@@ -7,6 +7,7 @@ import UserBottom from './UserBottom';
 import AuthScreen from '../screens/Auth/auth_screen';
 import {useDispatch, useSelector} from 'react-redux';
 import SalaryScreen from '../screens/UserScreen/Salary/salary_screen';
+import ClassInDate from '../screens/UserScreen/CourseManager/class_date_screen';
 
 
 const Stack = createNativeStackNavigator()
@@ -37,6 +38,13 @@ const Navigation = () => {
         <Stack.Screen 
           name="/salary" 
           component={SalaryScreen} 
+          options={{ 
+            headerShown: false 
+          }}
+        />
+        <Stack.Screen 
+          name="/class/date" 
+          component={ClassInDate} 
           options={{ 
             headerShown: false 
           }}

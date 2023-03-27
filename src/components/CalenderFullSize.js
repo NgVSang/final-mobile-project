@@ -27,13 +27,12 @@ const CalenderFullSize = ({
     style,
     listDate
 }) => {
-    const [list,setList] = React.useState(listDate)
     const [listPlan,setListPlan] = React.useState()
     React.useEffect(()=>{
         let demo ={}
-        for (let i = 0 ; i< list?.length;i++){
+        for (let i = 0 ; i< listDate?.length;i++){
             let obj ={
-                [list[i].date]:{marked: true}
+                [listDate[i].date]:{marked: true}
             }
             demo = Object.assign({},obj,demo)
         }
@@ -44,9 +43,9 @@ const CalenderFullSize = ({
             <Text style={styles.title}>Lịch dạy học</Text>
             <Calendar
                 scrollEnabled={true}
-                // onDayPress={day => {
-                //     NavigationService.navigate('TrackCalender',{day})
-                // }}
+                onDayPress={day => {
+                    NavigationService.navigate('/class/date',{day})
+                }}
                 // Enable the option to swipe between months. Default = false
                 enableSwipeMonths={true}
                 renderArrow={direction => 

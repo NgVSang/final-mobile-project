@@ -8,7 +8,13 @@ import {BASE_URL} from '../../../config'
 const HomeScreen = ({navigation}) => {
     const {user,token} = useSelector(state => state.auth)
     const [isLoading,setIsLoading] = React.useState(false)
-    const [listDate,setListDate] = React.useState({})
+    const [listDate,setListDate] = React.useState([
+        {
+            date:"2023-03-30"
+        },{
+            date:"2023-03-31"
+        },
+    ])
 
     return (
         <View style={{flex:1 ,backgroundColor:'#eef2ff'}}>
