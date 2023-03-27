@@ -71,7 +71,7 @@ const HomeScreen = ({navigation}) => {
                         <Text style={styles.manager_content}>Danh sách lớp</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.manager_box} onPress={()=>{
-                        // navigation.push("Car/List")
+                        navigation.push("/report")
                     }}>
                         <View style={styles.manager_box_icon}>
                             <Image 

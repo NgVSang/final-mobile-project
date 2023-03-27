@@ -41,6 +41,13 @@ const Navigation = () => {
             headerShown: false 
           }}
         />
+        <Stack.Screen 
+          name="/report" 
+          component={SalaryScreen} 
+          options={{ 
+            headerShown: false 
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
