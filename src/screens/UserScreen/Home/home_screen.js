@@ -23,7 +23,7 @@ const HomeScreen = ({navigation}) => {
                     // navigation.push('Profile')
                 }}>
                     <Image 
-                        source={{uri:(BASE_URL+'/'+user.avatar)}}
+                        source={{uri:(user.avatar)}}
                         style={{
                             width:40,
                             height:40,

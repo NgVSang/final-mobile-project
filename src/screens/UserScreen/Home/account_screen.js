@@ -16,7 +16,8 @@ const AccountScreen = ({navigation}) => {
         let Token
         if (token != null ){
           Token = {
-              deviceToken: await deviceToken
+              deviceToken: await deviceToken,
+
           }
         }else{
           Token = {
@@ -31,7 +32,7 @@ const AccountScreen = ({navigation}) => {
             <ScrollView style={styles.scroll_view}>
                 <View style={styles.user}>
                     <Image 
-                        source={{uri:(BASE_URL+'/'+user.avatar)}}
+                        source={{uri:(user.avatar)}}
                         style={styles.user_img}
                     />
                     <Text style={styles.user_name}>{user.name}</Text>
