@@ -21,6 +21,7 @@ export const login = (data) => async (dispatch) => {
     const resData = payload.data;
     if (payload.status == 1){
         setHeaderConfigAxios(resData.access_token);
+        console.log(payload);
         await AsyncStorage.setItem("access_token", resData.access_token);
         dispatch({
           type: LOGIN_SUCCESS,

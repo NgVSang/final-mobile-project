@@ -8,11 +8,23 @@ import AuthScreen from '../screens/Auth/auth_screen';
 import {useDispatch, useSelector} from 'react-redux';
 import SalaryScreen from '../screens/UserScreen/Salary/salary_screen';
 import ClassInDate from '../screens/UserScreen/CourseManager/class_date_screen';
+import AdminBottom from './AdminBottom';
+import ClassroomsScreen from '../screens/UserScreen/Classrooms/classrooms_screen';
+import {setHeaderConfigAxios} from '../services/https/apiConfig';
 
 
 const Stack = createNativeStackNavigator()
 const Navigation = () => {
   const {token} = useSelector(state => state.auth)
+
+
+  useEffect(()=>{
+    if (token){
+      setHeaderConfigAxios(token);
+    }else{
+      setHeaderConfigAxios();
+    }
+  },[token])
   
   return (
     <NavigationContainer ref={ref => NavigationService.setTopLevelNavigator(ref)}>
@@ -24,6 +36,13 @@ const Navigation = () => {
         <Stack.Screen 
           name="/user" 
           component={UserBottom} 
+          options={{ 
+            headerShown: false 
+          }}
+        />
+        <Stack.Screen 
+          name="/admin" 
+          component={AdminBottom} 
           options={{ 
             headerShown: false 
           }}
@@ -43,8 +62,15 @@ const Navigation = () => {
           }}
         />
         <Stack.Screen 
-          name="/class/date" 
+          name="/user/class/date" 
           component={ClassInDate} 
+          options={{ 
+            headerShown: false 
+          }}
+        />
+        <Stack.Screen 
+          name="/user/class" 
+          component={ClassroomsScreen} 
           options={{ 
             headerShown: false 
           }}

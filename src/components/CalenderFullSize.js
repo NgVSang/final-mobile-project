@@ -44,7 +44,7 @@ const CalenderFullSize = ({
             <Calendar
                 scrollEnabled={true}
                 onDayPress={day => {
-                    NavigationService.navigate('/class/date',{day})
+                    NavigationService.navigate('/user/class/date',{day})
                 }}
                 // Enable the option to swipe between months. Default = false
                 enableSwipeMonths={true}

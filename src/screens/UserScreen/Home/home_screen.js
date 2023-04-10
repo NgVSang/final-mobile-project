@@ -61,9 +61,9 @@ const HomeScreen = ({navigation}) => {
                 }
                 <View style={styles.manager}>
                     <TouchableOpacity style={styles.manager_box} onPress={()=>{
-                        // navigation.push("Registration/List")
+                        navigation.push("/user/class")
                     }
-                }>
+                    }>
                         <View style={styles.manager_box_icon}>
                             <Image 
                                 source={require('../../../assets/icons/class_icon.png')}
