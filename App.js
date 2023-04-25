@@ -2,10 +2,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import Navigation from './src/routes/Navigation';
 import { ToastProvider } from 'react-native-toast-notifications'
 import {Provider} from 'react-redux';
+import * as SplashScreen from "expo-splash-screen";
 import {persistor, store} from './src/store/store';
 import { Provider as ModalProvider} from 'react-native-paper';
 import axios from 'axios';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {PersistGate} from 'redux-persist/integration/react';
 
 import * as Device from 'expo-device';
@@ -24,6 +25,7 @@ export default function App() {
   const [expoPushToken, setExpoPushToken] = React.useState('');
   const notificationListener = React.useRef();
   const responseListener = React.useRef();
+  const [isLoadingComplete, setIsLoadingComplete] = React.useState(false);
 
   async function registerForPushNotificationsAsync() {
     let token;
@@ -58,6 +60,32 @@ export default function App() {
   }
 
   useEffect(() => {
+    async function prepare() {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setIsLoadingComplete(true);
+      }
+    }
+    const setHeader = async ()=>{
+      let access_token = await AsyncStorage.getItem("access_token");
+      setHeaderConfigAxios(access_token);
+    }
+
+    prepare();
+    setHeader();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (isLoadingComplete) {
+      await SplashScreen.hideAsync();
+    }
+  }, [isLoadingComplete]);
+
+  useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -74,8 +102,12 @@ export default function App() {
     };
   }, []);
 
+  if (!isLoadingComplete) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayoutRootView}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ModalProvider>

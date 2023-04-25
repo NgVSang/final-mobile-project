@@ -11,12 +11,15 @@ import ClassInDate from '../screens/UserScreen/CourseManager/class_date_screen';
 import AdminBottom from './AdminBottom';
 import ClassroomsScreen from '../screens/UserScreen/Classrooms/classrooms_screen';
 import {setHeaderConfigAxios} from '../services/https/apiConfig';
+import ClassListScreen from '../screens/AdminScreen/class/class_list_screen';
+import TeacherListScreen from '../screens/AdminScreen/Teacher/teacher_list_screen';
+import CreateClassScreen from '../screens/AdminScreen/class/create_class_screen';
+import CreateTeacerScreen from '../screens/AdminScreen/Teacher/create_teacher_screen';
 
 
 const Stack = createNativeStackNavigator()
 const Navigation = () => {
-  const {token} = useSelector(state => state.auth)
-
+  const {token, user} = useSelector(state => state.auth)
 
   useEffect(()=>{
     if (token){
@@ -30,7 +33,7 @@ const Navigation = () => {
     <NavigationContainer ref={ref => NavigationService.setTopLevelNavigator(ref)}>
       <Stack.Navigator 
         initialRouteName={
-          (token && token != "") ? "/user" : "/auth"  
+          (token && token != "") ? user.role == "Teacher" ? "/user" : "/admin" : "/auth"  
         }
       >   
         <Stack.Screen 
@@ -71,6 +74,34 @@ const Navigation = () => {
         <Stack.Screen 
           name="/user/class" 
           component={ClassroomsScreen} 
+          options={{ 
+            headerShown: false 
+          }}
+        />
+        <Stack.Screen 
+          name="/admin/class" 
+          component={ClassListScreen} 
+          options={{ 
+            headerShown: false 
+          }}
+        />
+        <Stack.Screen 
+          name="/admin/class/create" 
+          component={CreateClassScreen} 
+          options={{ 
+            headerShown: false 
+          }}
+        />
+        <Stack.Screen 
+          name="/admin/teacher" 
+          component={TeacherListScreen} 
+          options={{ 
+            headerShown: false 
+          }}
+        />
+        <Stack.Screen 
+          name="/admin/teacher/create" 
+          component={CreateTeacerScreen} 
           options={{ 
             headerShown: false 
           }}

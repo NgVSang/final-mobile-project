@@ -47,7 +47,13 @@ const WClass = ({classInfo}) => {
                     }}
                 />
             default:
-                return <></>
+                return <Image 
+                source={require('../assets/images/default_class.jpeg')}
+                style={{
+                    width: 100,
+                    height:80
+                }}
+            />
         }
              
     },[])
@@ -114,11 +120,19 @@ const styles = StyleSheet.create({
         marginVertical:5,
         paddingHorizontal:15,
         paddingVertical:10,
-        borderWidth:1,
+        // borderWidth:1,
         borderRadius:6,
         backgroundColor:'#FFF',
         flexDirection:'row',
-        display:'flex'
+        display:'flex',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     image_wrapper:{
 

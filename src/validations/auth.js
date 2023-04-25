@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { email, password,old_password, phone_number, re_password ,validNumber,name} from './common'
+import { email, password,old_password, phone_number, re_password ,validNumber,name, username} from './common'
 
 export const LoginSchema = Yup.object().shape({
     phone_number,
@@ -11,7 +11,7 @@ export const SignUpSchema = Yup.object().shape({
     phone_number,
     password,
     re_password,
-    email
+    username
 })
 
 export const ConfirmEmailSchema = (length, name) => {

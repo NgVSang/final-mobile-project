@@ -32,7 +32,7 @@ const CalenderFullSize = ({
         let demo ={}
         for (let i = 0 ; i< listDate?.length;i++){
             let obj ={
-                [listDate[i].date]:{marked: true}
+                [listDate[i]]:{marked: true}
             }
             demo = Object.assign({},obj,demo)
         }
@@ -135,10 +135,12 @@ const styles = StyleSheet.create({
     },
     calender_style:{
         borderRadius:6,
-        shadowColor: '#0000000D',
+        shadowColor: "#000",
         shadowOffset: {width: 2, height: 8},
-        shadowOpacity: 0,
-        shadowRadius: 0,
+        shadowOpacity: 0.52,
+        shadowRadius: 5,
+
+        elevation: 4,
     },
     calender_title_style:{
         fontSize:12,

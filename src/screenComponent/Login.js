@@ -7,6 +7,7 @@ import { authValidator } from '../validations'
 import WFormInput from '../components/WFormInput'
 import NavigationService from '../services/NavigationService';
 import {login} from '../store/actions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const { width, height } = Dimensions.get('window');
@@ -14,7 +15,12 @@ const Login = ({navigation}) => {
     const dispatch = useDispatch();
     const { loading } = useSelector(state => state.auth)
     const handleLogin = async data => {
-        dispatch(login(data))
+        const sentData = {
+            ...data,
+            device_token: await AsyncStorage.getItem('push_token')
+        }
+        // console.log(sentData);
+        dispatch(login(sentData))
     };
     return (
         <ScrollView style={styles.screen}>

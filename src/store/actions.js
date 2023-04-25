@@ -27,13 +27,18 @@ export const login = (data) => async (dispatch) => {
           type: LOGIN_SUCCESS,
           payload:resData
         })
+        if (resData.info.role === "Admin"){
+          NavigationService.reset('/admin')
+        }else {
           NavigationService.reset('/user')
+        }
     }
     else{
       throw new Error(payload.message)
     }
   } catch (error) {
-      alert(error.message)
+      alert("Sai tài khoản hoặc mật khẩu!")
+      console.log(error);
       dispatch({
         type: LOGIN_FAILED,
         payload: "Đăng nhập thất bại"
@@ -42,13 +47,13 @@ export const login = (data) => async (dispatch) => {
 };
 
 export const logout = (data) => async (dispatch) => {
-  await dispatch({
-    type: LOGOUT
-  })
   try {
     const payload = await authService.logout(data)
     console.log(payload);
     if (payload){
+      await dispatch({
+        type: LOGOUT
+      })
       NavigationService.reset('/auth');
       setHeaderConfigAxios();
     }

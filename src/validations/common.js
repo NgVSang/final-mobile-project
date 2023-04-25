@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
 
 const name = Yup.string().required('Vui lòng nhập tên')
+const username = Yup.string().required('Vui lòng nhập username')
 const validNumber = Yup.string().required('Vui lòng nhập OTP')
 const email = Yup.string().required('Vui lòng nhập Email').email('Vui lòng nhập một email')
 const old_password = Yup.string().required('Vui lòng nhập mật khẩu').min(8, 'Mật khẩu có ít nhất 6 kí tự')
@@ -15,5 +16,6 @@ export {
     re_password,
     validNumber,
     name,
-    old_password
+    old_password,
+    username
 }

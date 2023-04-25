@@ -1,26 +1,81 @@
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, {useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import Loading from '../../../components/Loading'
 import CalenderFullSize from '../../../components/CalenderFullSize'
 import {BASE_URL} from '../../../config'
+import classroomService from '../../../services/api/classroom/ClassService'
+import dayjs from 'dayjs'
 
 const HomeScreen = ({navigation}) => {
     const {user,token} = useSelector(state => state.auth)
     const [isLoading,setIsLoading] = React.useState(false)
     const [listDate,setListDate] = React.useState([
-        {
-            date:"2023-03-30"
-        },{
-            date:"2023-03-31"
-        },
+        
     ])
+    const convertDayString = (dayString) =>{
+        switch (dayString) {
+            case "Monday":
+                return 1
+            case "Tuesday":
+                return 2
+            case "Wednesday":
+                return 3
+            case "Thursday":
+                return 4
+            case "Friday":
+                return 5
+            case "Saturday":
+                return 6
+            case "Sunday":
+                return 0
+            default:
+                return 0;
+        }
+    }
+
+    const getListDate = (data) => {
+        const listDate = []
+        const date = new Date();
+        const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+        for (let i = date.getDate() ; i <= lastDay; i++){
+            date.setDate(i);
+            for (let j = 0 ; j < data.length ; j++){
+                for (let k = 0; k < data[j].study_sessions.length; k ++ ){
+                    const study_session = data[j].study_sessions[k]
+                    if (date.getDay() == convertDayString(study_session.day_of_week)) {
+                        const day = dayjs(date).format("YYYY-MM-DD")
+                        if (!listDate.includes(day)) {
+                            listDate.push(day);
+                        }
+                    }
+                  
+                }
+            }
+        }
+        setListDate(listDate)
+    }
+
+    React.useEffect(()=>{
+        if (token){
+            setIsLoading(true)
+            classroomService.get_classrooms()
+            .then((res)=>{
+                getListDate(res.data.classrooms)
+                setIsLoading(false)
+            })
+            .catch((error)=>{
+                setIsLoading(false)
+                alert("Some error")
+            })
+        }
+    },[token])
 
     return (
         <View style={{flex:1 ,backgroundColor:'#eef2ff'}}>
             <View style={styles.header}>
                 <TouchableOpacity style={styles.header_left} onPress={()=>{
-                    // navigation.push('Profile')
+                    // navigation.push('ProfileUser')
                 }}>
                     <Image 
                         source={{uri:(user.avatar)}}
@@ -202,7 +257,8 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         width:'100%',
         flexWrap:'wrap',
-        justifyContent:'space-between'
+        display:'flex',
+        justifyContent:'space-between',
     },
     manager_box:{
         width:'31%',
@@ -215,8 +271,15 @@ const styles = StyleSheet.create({
         shadowOpacity: 0,
         shadowRadius: 0,
         backgroundColor:'#FFFFFF',
-        justifyContent:'space-between',
-        marginBottom:15
+        marginBottom:15,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 3,
     },
     manager_box_icon:{
         width:'auto',

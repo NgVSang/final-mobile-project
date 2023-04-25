@@ -11,12 +11,13 @@ const AccountScreen = ({navigation}) => {
     const {user} = useSelector(state => state.auth)
     const deviceToken = AsyncStorage.getItem("push_token");
     const dispatch = useDispatch();
+    // console.log(user.avatar);
     const handleLogout = async ()=>{
         const token =  await deviceToken
         let Token
         if (token != null ){
           Token = {
-              deviceToken: await deviceToken,
+            deviceToken: await deviceToken,
 
           }
         }else{
@@ -36,7 +37,7 @@ const AccountScreen = ({navigation}) => {
                         style={styles.user_img}
                     />
                     <Text style={styles.user_name}>{user.name}</Text>
-                    <Text style={styles.user_role}>Giáo viên</Text>
+                    <Text style={styles.user_role}>{user.role}</Text>
                 </View>
                 <View style={styles.information}>
                     <View style={styles.information_row}>

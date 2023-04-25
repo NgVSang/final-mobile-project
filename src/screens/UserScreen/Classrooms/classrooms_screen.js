@@ -13,8 +13,6 @@ const ClassroomsScreen = ({navigation,route}) => {
     const {token} = useSelector(state => state.auth)
     React.useEffect(()=>{
         if (token){
-            console.log(token);
-            // setHeaderConfigAxios(token);
             setLoading(true)
             classroomService.get_classrooms()
             .then((res)=>{
@@ -27,7 +25,6 @@ const ClassroomsScreen = ({navigation,route}) => {
             })
         }
     },[token])
-    console.log(data);
 
     return (
         <View style={{flex:1}}>

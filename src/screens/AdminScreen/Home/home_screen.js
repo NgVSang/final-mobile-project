@@ -10,20 +10,10 @@ const HomeScreen = ({navigation,route}) => {
         <View style={{flex:1 ,backgroundColor:'#eef2ff'}}>
             <View style={styles.header}>
                 <TouchableOpacity style={styles.header_left} onPress={()=>{
-                    // navigation.push('Profile')
+                    // navigation.push('ProfileUser')
                 }}>
-                    {/* <Image 
-                        source={{uri:(user.avatar)}}
-                        style={{
-                            width:40,
-                            height:40,
-                            resizeMode:'cover',
-                            borderRadius:6,
-                            marginRight:10,
-                        }}
-                    /> */}
                     <Image 
-                        source={{uri:"https://duhung.vn/wp-content/uploads/2023/01/Promethean-7.jpg"}}
+                        source={{uri:(user.avatar)}}
                         style={{
                             width:40,
                             height:40,
@@ -46,10 +36,10 @@ const HomeScreen = ({navigation,route}) => {
                 }}>
                     Hôm nay, {dayjs(new Date()).format("DD / MM / YYYY")}
                 </Text>
-                <TouchableOpacity style={styles.manager_box} onPress={()=>{
-                        // navigation.push("/user/class")
-                    }
-                    }>
+                <View style={styles.manager}>
+                    <TouchableOpacity style={styles.manager_box} onPress={()=>{
+                        navigation.push("/admin/class")
+                    }}>
                         <View style={styles.manager_box_icon}>
                             <Image 
                                 source={require('../../../assets/icons/class_icon.png')}
@@ -62,6 +52,22 @@ const HomeScreen = ({navigation,route}) => {
                         </View>
                         <Text style={styles.manager_content}>Danh sách lớp</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.manager_box} onPress={()=>{
+                        navigation.push("/admin/teacher")
+                    }}>
+                        <View style={styles.manager_box_icon}>
+                            <Image 
+                                source={require('../../../assets/icons/teacher_icon.png')}
+                                style={{
+                                    width:26.21,
+                                    height:32,
+                                    resizeMode:'contain'
+                                }}
+                            />
+                        </View>
+                        <Text style={styles.manager_content}>Danh sách giáo viên</Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         </View>
     )
@@ -110,6 +116,13 @@ const styles = StyleSheet.create({
         backgroundColor:'#eef2ff',
         paddingBottom:20
     },
+    manager:{
+        flexDirection:'row',
+        display:'flex',
+        flexWrap:'wrap',
+        columnGap:10,
+        rowGap:8,
+    },  
     manager_box:{
         width:'31%',
         paddingHorizontal:15,
