@@ -48,15 +48,20 @@ export const login = (data) => async (dispatch) => {
 
 export const logout = (data) => async (dispatch) => {
   try {
-    const payload = await authService.logout(data)
-    console.log(payload);
-    if (payload){
-      await dispatch({
-        type: LOGOUT
-      })
-      NavigationService.reset('/auth');
-      setHeaderConfigAxios();
-    }
+    await dispatch({
+      type: LOGOUT
+    })
+    NavigationService.reset('/auth');
+    setHeaderConfigAxios();
+    // const payload = await authService.logout(data)
+    // console.log(payload);
+    // if (payload){
+    //   await dispatch({
+    //     type: LOGOUT
+    //   })
+    //   NavigationService.reset('/auth');
+    //   setHeaderConfigAxios();
+    // }
   } catch (error) {
       alert(error.message)
       dispatch({

@@ -9,7 +9,6 @@ import Login from '../../screenComponent/Login';
 const { width, height } = Dimensions.get('window');
 const AuthScreen = ({navigation}) => {
     const show = React.useRef();
-    const dispatch = useDispatch();
     const [toggle,setToggle] = React.useState()
 
     const showLoginForm = ()=>{
@@ -19,10 +18,6 @@ const AuthScreen = ({navigation}) => {
     React.useEffect(()=>{
         return ()=> show.current.show();
     },[toggle])
-
-    React.useEffect(()=>{
-        // dispatch(clearToken());
-    },[])
     return (           
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"} 

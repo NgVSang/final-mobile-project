@@ -5,6 +5,7 @@ import Footer from '../../../components/layout/Footer'
 import teacherService from '../../../services/api/teacher/TeacherService'
 import {useSelector} from 'react-redux'
 import WTeacher from '../../../components/WTeacher'
+import Loading from '../../../components/Loading'
 
 const TeacherListScreen = ({navigation,route}) => {
   const [data,setData] = React.useState()
@@ -36,12 +37,20 @@ const TeacherListScreen = ({navigation,route}) => {
       />
       <ScrollView style={styles.scrollView}>
         {
-          data?.map((teacher)=>(
-            <WTeacher 
-              teacher={teacher}
-              key={teacher.id}
-            />
-          ))
+          data ? (
+            <>
+              {
+                data?.map((teacher)=>(
+                  <WTeacher 
+                    teacher={teacher}
+                    key={teacher.id}
+                  />
+                ))
+              }
+            </>
+          ):(
+            <Loading />
+          )
         }
       </ScrollView>
       <Footer 

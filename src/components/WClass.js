@@ -78,6 +78,14 @@ const WClass = ({classInfo}) => {
                 <Text style={styles.content_label}>Sĩ số lớp: </Text>
                 <Text style={styles.content_styled}>{classInfo?.classroom_size}</Text>
             </View>
+            {
+                classInfo?.teacher_name ? (
+                    <View style={styles.container}>
+                        <Text style={styles.content_label}>Giáo viên đứng lớp: </Text>
+                        <Text style={styles.content_styled}>{classInfo?.teacher_name}</Text>
+                    </View>
+                ):(<></>)
+            }
             <View style={styles.container}>
                 <Text style={styles.content_label}>Giờ học: </Text>
                 <View style={{

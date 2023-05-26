@@ -74,7 +74,7 @@ const AccountScreen = ({navigation}) => {
                             <Text style={[styles.text_normal_style,{color:'#2C3442'}]}>{user.phone}</Text>
                         </View>
                     </View>
-                    <View style={styles.information_row}>
+                    {/* <View style={styles.information_row}>
                         <TouchableOpacity style={styles.infor_left}>
                             <View style={styles.icon}>
                                 <Image 
@@ -87,7 +87,7 @@ const AccountScreen = ({navigation}) => {
                             </View>
                             <Text style={styles.text_touch_style}>Đổi mật khẩu</Text>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                     <View style={styles.information_row}>
                         <TouchableOpacity style={styles.infor_left} onPress={()=>handleLogout()}>
                             <View style={styles.icon}>

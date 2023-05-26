@@ -131,7 +131,7 @@ const HomeScreen = ({navigation}) => {
                         </View>
                         <Text style={styles.manager_content}>Danh sách lớp</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.manager_box} onPress={()=>{
+                    {/* <TouchableOpacity style={styles.manager_box} onPress={()=>{
                         // navigation.push("Car/List")
                     }}>
                         <View style={styles.manager_box_icon}>
@@ -145,7 +145,7 @@ const HomeScreen = ({navigation}) => {
                             />
                         </View>
                         <Text style={styles.manager_content}>Báo cáo</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity style={styles.manager_box} onPress={()=>{
                         navigation.push("/salary")
                     }}>
@@ -255,10 +255,9 @@ const styles = StyleSheet.create({
     },
     manager:{
         flexDirection:'row',
-        width:'100%',
         flexWrap:'wrap',
-        display:'flex',
-        justifyContent:'space-between',
+        columnGap:10,
+        rowGap:8,
     },
     manager_box:{
         width:'31%',
